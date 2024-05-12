@@ -23,6 +23,43 @@ apply_example_routes(app)
 
 # == End Example Code ==
 
+# Request:
+# GET /hello?name=David
+
+@app.route('/hello', methods=['GET'])
+def hello():
+    name = request.args['name'] # The value is 'David'
+
+    # Send back a friendly greeting with the name
+    return f"Hello {name}!"
+
+# To make a request, run:
+# curl "http://localhost:5001/hello?name=David"
+
+# Request:
+# POST /goodbye
+#   With body parameter: name=Alice
+
+@app.route('/goodbye', methods=['POST'])
+def goodbye():
+    name = request.form['name'] # The value is 'Alice'
+
+    # Send back a fond farewell with the name
+    return f"Goodbye {name}!"
+
+@app.route("/submit", methods=['POST'])
+def submit():
+    name = request.form['name']
+    message = request.form['message']
+    
+    return f'Thanks {name}, you sent this message: "{message}"'
+    
+    
+@app.route("/wave", methods=['GET'])
+def wave():
+    name = request.args['name']
+    return f'I am waving at {name}'
+
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.
